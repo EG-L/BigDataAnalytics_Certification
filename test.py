@@ -30,3 +30,26 @@ print(x_test.isna().sum())
 # null 값 0 확인
 
 print(x_train.describe())
+
+x_train = x_train.drop(labels="name",axis=1)
+x_test = x_test.drop(labels="name",axis=1)
+
+print(x_train.head())
+
+from sklearn.model_selection import train_test_split
+
+x_train,x_val,y_train,y_val = train_test_split(x_train,y_train,test_size=0.3)
+
+rf = RandomForestClassifier()
+rf.fit(x_train,y_train)
+# x_train 과 y_train 값을 이용해 모델 학습
+
+x_val_pred = rf.predict(x_val)
+
+y_val_pred_probarf = rf.predict_proba(x_val)
+
+from sklearn.metrics import roc_auc_score
+
+print(y_val_pred_probarf)
+
+print(roc_auc_score(y_val,y_val_pred_probarf[:,1]))
