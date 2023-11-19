@@ -53,3 +53,8 @@ from sklearn.metrics import roc_auc_score
 print(y_val_pred_probarf)
 
 print(roc_auc_score(y_val,y_val_pred_probarf[:,1]))
+
+pred = rf.predict_proba(x_test)
+print(pred[:,1])
+
+pd.DataFrame({'isUSA':pred[:,1]}).to_csv('./003000000.csv',index=False)
